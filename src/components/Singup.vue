@@ -48,8 +48,9 @@
 </template>
 
 <script>
-    import {logIn,BASE_AUTH_URL} from '@/lib/auth'
-    import axios from "axios";
+    import {BASE_AUTH_URL} from '../lib/auth'
+    import router from '../router/index'
+    import axios from 'axios'
 
     export default {
         name: "Singup",
@@ -67,7 +68,7 @@
 
                 axios.post(BASE_AUTH_URL+'/register', this.userDetails)
                     .then(res => {
-
+                        router.push({name: 'dashboard'})
                     })
                     .catch(err => {
 

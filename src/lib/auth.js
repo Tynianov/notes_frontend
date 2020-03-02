@@ -31,3 +31,19 @@ export const isLoggedIn = () => {
 export const logOut = () => {
     localStorage.removeItem(TOKEN);
 };
+
+export const signUp = (data) => {
+    return axios({
+        baseURL: BASE_AUTH_URL+"/register",
+        method: 'post',
+        params: {
+            format: 'json'
+        },
+        data: {data},
+        withCredentials: !parseInt(process.env.VUE_APP_IS_CROSSDOMAIN),
+    })
+        .then(res => {
+            setToken(res.data.token);
+            return res
+        })
+};
