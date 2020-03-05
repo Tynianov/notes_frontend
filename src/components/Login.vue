@@ -13,7 +13,7 @@
                                 <v-form @submit="login">
                                     <v-text-field
                                             name="username"
-                                            label="Username"
+                                            label="Email"
                                             type="text"
                                             v-model="email"
                                     ></v-text-field>
@@ -24,6 +24,9 @@
                                             type="password"
                                             v-model="password"
                                     ></v-text-field>
+                                    <div v-if="validation_errors.length">
+                                        <b class="red--text ">{{validation_errors}}</b>
+                                    </div>
                                     <v-btn type="submit" color="primary">Login</v-btn>
                                 </v-form>
                             </v-card-text>
@@ -36,15 +39,27 @@
 </template>
 
 <script>
+    import {BASE_AUTH_URL} from '../lib/auth'
+    import router from '../router/index'
+    import axios from 'axios'
     export default {
         name: "Login",
         data: () => ({
             email: '',
-            password: ''
+            password: '',
+            validation_errors: ''
         }),
         methods: {
-            login(){
-
+            login(e){
+                e.preventDefault();
+                let credentials = {email: this.email, password: this.password};
+                axios.post(BASE_AUTH_URL+'/login', credentials)
+                    .then(res => {
+                        router.push({name: 'dashboard'});
+                    })
+                    .catch(err => {
+                        this.validation_errors = "Invalid credentials";
+                    })
             }
         }
     }

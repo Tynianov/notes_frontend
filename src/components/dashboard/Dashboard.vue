@@ -1,10 +1,14 @@
-<template>
-    <h1>Hello</h1>
-</template>
+<templat>
+    <v-app>
+    <Header/>
+    </v-app>
+</templat>
 
 <script>
+    import Header from './Header'
     export default {
-        name: "Dashboard"
+        name: "Dashboard",
+        components: {Header}
     }
 </script>
 
