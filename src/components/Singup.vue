@@ -79,15 +79,12 @@
         methods: {
             signup(e){
                 e.preventDefault();
-                console.log('!!!', this.userDetails);
                 axios.post(BASE_AUTH_URL+'/register', this.userDetails)
                     .then(res => {
                         router.push({name: 'dashboard'})
                     })
                     .catch(err => {
-                        console.log('err', err.response.data.errors)
                         this.validationErrors = err.response.data.errors[0];
-                        console.log(this.validationErrors)
                     })
             }
         }
