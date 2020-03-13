@@ -2,7 +2,7 @@
     <v-hover  v-slot:default="{ hover }">
         <v-card class="note-card"
             :elevation="hover ? 16 : 6"
-            @click="openNoteModal"
+            @click="click"
         >
             <v-card-title>
                 {{title}}
@@ -33,9 +33,6 @@
             color: '#f0252b'
         }),
         methods: {
-            openNoteModal(){
-                alert('hello')
-            }
         }
     }
 </script>
@@ -43,7 +40,7 @@
 <style scoped>
 .note-card{
     margin: 6px;
-    max-width: 300px;
+    max-width: 350px;
     max-height: 400px;
 }
 </style>
