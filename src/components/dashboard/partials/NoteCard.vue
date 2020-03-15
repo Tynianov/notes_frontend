@@ -5,14 +5,14 @@
             @click="click"
         >
             <v-card-title>
-                {{title}}
+                {{note.title}}
                 <v-spacer></v-spacer>
                 <span :style="{color: color}">
-                    <v-icon class="inline-icon" :color="color">brightness_1</v-icon>
+                    <v-icon class="inline-icon" :color="note.color">brightness_1</v-icon>
                 </span>
             </v-card-title>
             <v-card-text>
-                {{text}}
+                {{note.text}}
             </v-card-text>
         </v-card>
     </v-hover>

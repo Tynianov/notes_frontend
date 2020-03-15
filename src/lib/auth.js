@@ -2,7 +2,7 @@ import axios from "axios";
 const TOKEN = 'token';
 
 export const getToken = () => localStorage.getItem(TOKEN);
-const setToken = (token) => localStorage.setItem(TOKEN, token);
+export const setToken = (token) => localStorage.setItem(TOKEN, token);
 export const removeToken = () => localStorage.removeItem(TOKEN);
 
 export const BASE_API_URL = process.env.VUE_APP_CORE_SERVER_ORIGIN + '/api/v1';

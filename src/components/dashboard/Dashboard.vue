@@ -8,28 +8,30 @@
                     <v-toolbar-title>Your notes</v-toolbar-title>
                 </v-app-bar>
                 <NoteDialog
-                        v-model="showNotesModal"
+                    v-model="showNotesModal"
                 />
                     <v-layout row wrap justify-space-between ml-2>
-                        <v-flex xs12 sm4 ml-4>
+                        <v-flex xs12 sm6 ml-4>
                             <v-text-field
                                 type="text"
                                 label="Search"
                             >
                             </v-text-field>
                         </v-flex>
-                        <v-flex sm6 mr-10 row align-center>
-                            <v-select
-                                :items="getFilterItems"
-                            />
+                        <v-flex sm6 row align-center
+                                class="d-flex flex-row-reverse"
+                        >
+                            <v-btn>Add color</v-btn>
+
                             <v-btn>Add Note</v-btn>
                         </v-flex>
                     </v-layout>
                 <v-container grid-list-md fluid>
                     <v-layout row wrap>
-                        <v-flex  v-for="i in 12">
+                        <v-flex  v-for="note in notes">
                             <NoteCard
-                                :click="openNoteModal"
+                                :note="note"
+                                :click="openNoteModal(note._id)"
                             />
                         </v-flex>
                     </v-layout>
@@ -40,28 +42,33 @@
 </template>
 
 <script>
-    import NoteCard from "@/components/dashboard/partials/NoteCard";
-    import NoteDialog from "@/components/dashboard/partials/NoteDialog";
+    import NoteCard from "./partials/NoteCard";
+    import NoteDialog from "./partials/NoteDialog";
+    import service from '../../services/dashboard'
 
     export default {
         name: "Dashboard",
         components: {NoteCard, NoteDialog},
         data: () => ({
             showNotesModal: false,
-            notes: [
-                {title: 'title1', text: 'Lorem ipsum dolor sit amet, consectetur',}
-            ]
-
+            notes: [],
         }),
         computed:{
-            getFilterItems(){
-                return ["Red", "Green", "Blue"]
-            }
         },
         methods: {
             openNoteModal(){
                 this.showNotesModal = true;
+            },
+            getNotesList(){
+                service.getNotesList()
+                    .then(res => {
+                        this.notes = res.data.notes;
+                    })
             }
+
+        },
+        created() {
+            this.getNotesList();
         }
     }
 </script>

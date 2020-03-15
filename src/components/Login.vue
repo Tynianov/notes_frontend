@@ -42,6 +42,8 @@
     import {BASE_AUTH_URL} from '../lib/auth'
     import router from '../router/index'
     import axios from 'axios'
+    import {setToken} from '../lib/auth'
+
     export default {
         name: "Login",
         data: () => ({
@@ -55,6 +57,7 @@
                 let credentials = {email: this.email, password: this.password};
                 axios.post(BASE_AUTH_URL+'/login', credentials)
                     .then(res => {
+                        setToken(res.data.token);
                         router.push({name: 'dashboard'});
                     })
                     .catch(err => {
